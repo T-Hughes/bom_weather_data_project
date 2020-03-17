@@ -63,7 +63,7 @@ temp_difference_minus_NA <- temp_difference %>% filter(temp_difference != "NA")
 #group per month (file names need to change with above extra line for NA)
 
 per_month_temp_diff <- temp_difference_minus_NA %>% group_by(Month) %>% 
-  arrange(temp_difference)
+  arrange(temp_difference)    
 
 
 

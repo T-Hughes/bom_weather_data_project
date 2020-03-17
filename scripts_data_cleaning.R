@@ -60,10 +60,46 @@ temp_difference <- mutate(BOM_Data, temp_difference = max - min)
 temp_difference_minus_NA <- temp_difference %>% filter(temp_difference != "NA")
 
                              
-#group per month (file names need to change with above extra line for NA)
+#group per month average
 
-per_month_temp_diff <- temp_difference_minus_NA %>% group_by(Month) %>% 
-  arrange(temp_difference)    
+Average_difference <- temp_difference_minus_NA %>% group_by(Month) %>% 
+  summarise(mean_difference = mean(temp_difference))
+
+
+#rearrange in order    
+ 
+arrange(Average_difference,mean_difference)   
+
+# Answer is month 6
+
+#____________________________________________________________________________
+
+#Q3: Which state saw the lowest average daily temperature difference?
+
+# open second file
+
+# open file
+
+bom_stations <- read_csv("raw_data/BOM_stations.csv")
+
+#view files
+
+view(bom_stations)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

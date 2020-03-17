@@ -33,10 +33,38 @@ Bom_data_number <- summarise(perstation_cutdown_min_max_rainfall,
                              days_recorded_min_max_rainfall=n())
 
 
-   
+#__________________________________________________  
 
 
 # Question 2: Which month saw the lowest average daily temperature difference?
+
+#view files
+view(bom_data)
+
+#separate min and max temps
+
+temp_min_max<- separate(bom_data, Temp_min_max, into = c("min", "max"), sep = "/")
+
+#from Bill to get numeric
+temp_min_max %>% 
+  mutate(min = as.numeric(min)) %>% 
+  mutate(max = as.numeric(max)) %>% 
+  mutate(Rainfall = as.numeric(Rainfall))-> BOM_Data
+
+#substract max and min into new column
+temp_difference <- mutate(BOM_Data, temp_difference = max - min)
+
+
+#remove all NA, need to get all NA out of the temp_difference
+
+temp_difference_minus_NA <- temp_difference %>% filter(temp_difference != "NA")
+
+                             
+#group per month (file names need to change with above extra line for NA)
+
+per_month_temp_diff <- temp_difference_minus_NA %>% group_by(Month) %>% 
+  arrange(temp_difference)
+
 
 
 

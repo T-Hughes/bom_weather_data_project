@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-# Question 1:For each station, how many days have a minimum temperature,
+# Question 1: For each station, how many days have a minimum temperature,
 # a maximum temperature and a rainfall measurement recorded?
 
 #open file
@@ -45,7 +45,7 @@ view(bom_data)
 
 temp_min_max<- separate(bom_data, Temp_min_max, into = c("min", "max"), sep = "/")
 
-#from Bill to get numeric
+# (from Bill's info) to get numeric
 temp_min_max %>% 
   mutate(min = as.numeric(min)) %>% 
   mutate(max = as.numeric(max)) %>% 
@@ -70,7 +70,7 @@ Average_difference <- temp_difference_minus_NA %>% group_by(Month) %>%
  
 arrange(Average_difference,mean_difference)   
 
-# Answer is month 6
+# Answer is month 6 or June
 
 #____________________________________________________________________________
 
@@ -150,9 +150,11 @@ av_sol_exp <-  summarise(combined_bom_by_lat, mean_solar_exp = mean(Solar_exposu
 
 #ANSWER Eastmost (153.4661, mean solar exp is 19.5 vs 19.1 for westmost)
 
+#would like to have table with just min and max longitude, instead of 19 rows
+#use filter and min OR max
 
+Q4 <- filter(av_sol_exp, lon == min (lon) | lon == max(lon))
 
- 
 
 
 

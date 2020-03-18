@@ -128,7 +128,31 @@ arrange(Average_difference,mean_difference)
 #ANSWER Q3: QLD
 #________________________________________________________________________________
 
+#Q4: Does the westmost (lowest longitude) or eastmost (highest longitude)
+#weather station in our dataset have a higher average solar exposure?
 
+#columns needing same numeric values
+combined_bom_num <- combined_bom %>% 
+  mutate(Solar_exposure = as.numeric(Solar_exposure))
+
+
+#combined gives NA, need taking out of the file
+combined_bom_minus_NA <- combined_bom_num %>% filter(Solar_exposure != "NA")
+
+#group by longitude
+
+combined_bom_by_lat <- combined_bom_minus_NA %>%  group_by(lon)
+
+#summarise
+
+av_sol_exp <-  summarise(combined_bom_by_lat, mean_solar_exp = mean(Solar_exposure))
+
+
+#ANSWER Eastmost (153.4661, mean solar exp is 19.5 vs 19.1 for westmost)
+
+
+
+ 
 
 
 

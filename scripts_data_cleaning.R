@@ -86,17 +86,47 @@ bom_stations <- read_csv("raw_data/BOM_stations.csv")
 
 view(bom_stations)
 
+#make long file by gather
+
+bom_station_long <- gather(bom_stations, key = "station_id", value = "value", 2:21)
+
+#spread
+
+bom_stations_new <- spread(bom_station_long, key = info, value = value)
+
+#combine with file from yesterday
+
+bom_data <- read_csv("raw_data/BOM_data.csv")
+
+view(bom_data)
+
+bom_stations_new_2 <- rename(bom_stations_new, Station_number = station_id)
+
+#make sure variables are same
+
+bom_stations_3 <- bom_stations_new_2 %>% 
+  mutate(Station_number = as.numeric(Station_number)) 
+  
+temp_difference_minus_NA %>% 
+  mutate(Station_number = as.numeric(Station_number)) 
+
+#combine
+combined_bom <- full_join(temp_difference_minus_NA , bom_stations_3)
+
+#group per state
+#group per month average
+
+Average_difference <- combined_bom %>% group_by(Month) %>% group_by(state) %>% 
+  summarise(mean_difference = mean(temp_difference))
 
 
+#rearrange in order    
+
+arrange(Average_difference,mean_difference)   
 
 
-
-
-
-
-
-
-
+#ANSWER Q3: QLD
+#________________________________________________________________________________
 
 
 

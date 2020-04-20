@@ -172,6 +172,7 @@ graph1 <- perth2 %>%
        x = "max", 
        y = "min",
        subtitle = "source: BOM meterological data")
+graph1
 
 graph2 <- perth2 %>% 
   ggplot(mapping = aes(x = max, y = Rainfall)) +
@@ -180,6 +181,7 @@ graph2 <- perth2 %>%
        x = "max", 
        y = "Rainfall",
        subtitle = "source: BOM meterological data")
+graph2
 
 graph3 <- perth2 %>% 
   ggplot(mapping = aes(x = max, y = Solar_exposure)) +
@@ -188,6 +190,7 @@ graph3 <- perth2 %>%
        x = "max", 
        y = "Solar Exposure",
        subtitle = "source: BOM meterological data")
+graph3
 
 #Q2:Display these 4 measurements for the Perth station in a single 
 # scatterplot by using additional aestetics mappings
@@ -275,5 +278,34 @@ rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean_rainfall,
 # geom_errorbar(aes(ymin=len-sd, ymax=len+sd), width=.2,
   #              position=position_dodge(0.05))
 
+#wrapped
+rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean_rainfall, 
+                                              colour = state , group = Station_number))+
+  geom_line()+
+    facet_wrap(~state)
+  labs(title = "Average Monthly rainfall", 
+       x = "Month", 
+       y = "Average rainfall",
+       subtitle = "source: BOM meterological data")
+  
+  #box plot
+  
+#not this one but the next  
+rainfall_per_station_per_month %>%
+  ggplot(aes(x = Month, y = mean_rainfall,colour = state , group = Station_number))+
+    geom_boxplot()+
+  facet_wrap(~state)
 
+av_rainfall_boxplot <- 
+rainfall_per_station_per_month %>%
+  ggplot(aes(x = Month, y = mean_rainfall,colour = state))+
+  geom_boxplot()+
+  facet_wrap(~state) +
+labs(title = "Average Monthly rainfall", 
+     x = "Month", 
+     y = "Average rainfall",
+     subtitle = "source: BOM meterological data")  
 
+ggsave(filename = "analysed_data/av_rainfall_per_month_boxplot.png" , 
+       plot = av_rainfall_boxplot,
+       width = 20, height = 15, dpi = 300, units = "cm")

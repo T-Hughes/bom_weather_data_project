@@ -254,8 +254,6 @@ av_rainfall <- rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean
        y = "Average rainfall",
        subtitle = "source: BOM meterological data")
 
-#weird average rainfall per month, is it per day?
-
 
 
 ggsave(filename = "analysed_data/av_rainfall_per_month.png" , 
@@ -274,9 +272,6 @@ rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean_rainfall,
        subtitle = "source: BOM meterological data")
 
 
- # not working
-# geom_errorbar(aes(ymin=len-sd, ymax=len+sd), width=.2,
-  #              position=position_dodge(0.05))
 
 #wrapped
 rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean_rainfall, 
@@ -290,11 +285,7 @@ rainfall_per_station_per_month %>% ggplot(aes(x = Month, y = mean_rainfall,
   
   #box plot
   
-#not this one but the next  
-rainfall_per_station_per_month %>%
-  ggplot(aes(x = Month, y = mean_rainfall,colour = state , group = Station_number))+
-    geom_boxplot()+
-  facet_wrap(~state)
+
 
 av_rainfall_boxplot <- 
 rainfall_per_station_per_month %>%
